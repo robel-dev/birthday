@@ -18,8 +18,7 @@ export function FinalSection() {
           <motion.p
             key={index}
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ 
               duration: 1, 
               delay: 0.5 + index * 0.8, 
@@ -38,8 +37,7 @@ export function FinalSection() {
       
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.5, delay: 5, ease: "easeOut" }}
         className="mt-20"
       >
@@ -51,8 +49,7 @@ export function FinalSection() {
       {/* Video placeholder */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 6.5, ease: "easeOut" }}
         className="mt-16 w-full max-w-sm aspect-video rounded-xl border border-primary/20 bg-card/30 backdrop-blur-sm flex items-center justify-center"
       >
@@ -62,8 +59,7 @@ export function FinalSection() {
       {/* Fade ending with heart */}
       <motion.div
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 2, delay: 7.5, ease: "easeOut" }}
         className="mt-20 mb-10 text-primary/60"
       >

@@ -19,8 +19,7 @@ export function BirthSection({ onContinue }: BirthSectionProps) {
     <section className="h-screen w-full flex flex-col items-center justify-center px-6 relative z-10">
       <motion.h2
         initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, ease: "easeOut" }}
         className="font-serif text-3xl md:text-5xl lg:text-6xl text-center text-primary tracking-wide mb-16"
       >
@@ -32,8 +31,7 @@ export function BirthSection({ onContinue }: BirthSectionProps) {
           <motion.p
             key={index}
             initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ 
               duration: 0.8, 
               delay: 0.5 + index * 0.6, 
@@ -48,8 +46,7 @@ export function BirthSection({ onContinue }: BirthSectionProps) {
       
       <motion.div
         initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
+        animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 3.2 }}
       >
         <ContinueButton onClick={onContinue} delay={0}>
