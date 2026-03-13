@@ -2,7 +2,10 @@
 
 import { useState, useCallback } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { BirthdayThemeProvider, useBirthdayTheme } from "@/components/birthday-theme-provider"
 import { StarField } from "@/components/star-field"
+import { SakuraBackground } from "@/components/sakura-background"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { HeroSection } from "@/components/sections/hero-section"
 import { BirthSection } from "@/components/sections/birth-section"
 import { StorySection } from "@/components/sections/story-section"
@@ -36,8 +39,9 @@ const sectionVariants = {
   }
 }
 
-export default function BirthdayJourney() {
+function BirthdayContent() {
   const [currentSection, setCurrentSection] = useState(0)
+  const { theme } = useBirthdayTheme()
 
   const goToNextSection = useCallback(() => {
     setCurrentSection(prev => Math.min(prev + 1, 5))
@@ -70,7 +74,31 @@ export default function BirthdayJourney() {
 
   return (
     <main className="relative bg-background min-h-screen overflow-hidden">
-      <StarField />
+      <AnimatePresence mode="wait">
+        {theme === "starry" ? (
+          <motion.div
+            key="starry-bg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <StarField />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="sakura-bg"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <SakuraBackground />
+          </motion.div>
+        )}
+      </AnimatePresence>
+      
+      <ThemeToggle />
       
       <AnimatePresence mode="wait">
         <motion.div
@@ -85,5 +113,13 @@ export default function BirthdayJourney() {
         </motion.div>
       </AnimatePresence>
     </main>
+  )
+}
+
+export default function BirthdayJourney() {
+  return (
+    <BirthdayThemeProvider>
+      <BirthdayContent />
+    </BirthdayThemeProvider>
   )
 }
