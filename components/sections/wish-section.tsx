@@ -53,57 +53,56 @@ function BirthdayCake({ onWishMade }: { onWishMade: () => void }) {
     }
   }
 
-  // Candle positions relative to cake top (x offset from center, in pixels)
-  const candlePositions = [-40, 0, 40]
-
   return (
     <div className="flex flex-col items-center">
+      {/* Candles */}
+      <div className="flex gap-8 mb-4">
+        {candlesLit.map((lit, index) => (
+          <button
+            key={index}
+            onClick={() => lit && extinguishCandle(index)}
+            className={`relative flex flex-col items-center transition-transform ${lit ? "cursor-pointer hover:scale-110" : "cursor-default"}`}
+            aria-label={lit ? `Blow out candle ${index + 1}` : `Candle ${index + 1} extinguished`}
+          >
+            {/* Flame */}
+            <AnimatePresence>
+              {lit && (
+                <motion.div
+                  initial={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0, y: -10 }}
+                  animate={{ 
+                    scale: [1, 1.1, 1],
+                    y: [0, -2, 0]
+                  }}
+                  transition={{ 
+                    scale: { duration: 0.5, repeat: Infinity },
+                    y: { duration: 0.3, repeat: Infinity }
+                  }}
+                  className="w-3 h-5 bg-gradient-to-t from-orange-400 via-yellow-300 to-yellow-100 rounded-full mb-1 shadow-[0_0_10px_rgba(255,200,0,0.8)]"
+                />
+              )}
+            </AnimatePresence>
+            {!lit && <div className="w-3 h-5 mb-1" />}
+            {/* Candle stick */}
+            <div className="w-2 h-12 bg-gradient-to-b from-pink-200 to-pink-300 rounded-sm" />
+          </button>
+        ))}
+      </div>
+      
+      {/* Cake */}
       <div className="relative">
-        {/* Candles positioned above the cake */}
-        <div className="absolute -top-16 left-1/2 flex items-end z-10">
-          {candlesLit.map((lit, index) => (
-            <button
-              key={index}
-              onClick={() => lit && extinguishCandle(index)}
-              style={{ transform: `translateX(${candlePositions[index] - 4}px)` }}
-              className={`absolute flex flex-col items-center transition-transform ${lit ? "cursor-pointer hover:scale-110" : "cursor-default"}`}
-              aria-label={lit ? `Blow out candle ${index + 1}` : `Candle ${index + 1} extinguished`}
-            >
-              {/* Flame */}
-              <AnimatePresence>
-                {lit && (
-                  <motion.div
-                    initial={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0, y: -10 }}
-                    animate={{ 
-                      scale: [1, 1.1, 1],
-                      y: [0, -2, 0]
-                    }}
-                    transition={{ 
-                      scale: { duration: 0.5, repeat: Infinity },
-                      y: { duration: 0.3, repeat: Infinity }
-                    }}
-                    className="w-4 h-6 bg-gradient-to-t from-orange-400 via-yellow-300 to-yellow-100 rounded-full mb-1 shadow-[0_0_12px_rgba(255,200,0,0.9)]"
-                  />
-                )}
-              </AnimatePresence>
-              {!lit && <div className="w-4 h-6 mb-1" />}
-              {/* Candle stick */}
-              <div className="w-2.5 h-10 bg-gradient-to-b from-pink-100 to-pink-200 rounded-sm shadow-sm" />
-            </button>
-          ))}
-        </div>
-        
-        {/* Cake Image */}
-        <img 
-          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/cake-wgmuSJku5oZCZn9tqcyploE039tqjm.png"
-          alt="Birthday cake decorated with cherry blossoms"
-          className="w-64 h-auto md:w-80 object-contain drop-shadow-xl"
-        />
+        {/* Top layer */}
+        <div className="w-32 h-8 bg-gradient-to-b from-pink-100 to-pink-200 rounded-t-lg border-b-2 border-pink-300" />
+        {/* Middle layer */}
+        <div className="w-40 h-10 bg-gradient-to-b from-pink-200 to-pink-300 -mx-4 border-b-2 border-pink-400" />
+        {/* Bottom layer */}
+        <div className="w-48 h-12 bg-gradient-to-b from-pink-300 to-pink-400 -mx-8 rounded-b-lg" />
+        {/* Plate */}
+        <div className="w-56 h-3 bg-foreground/10 rounded-full -mx-12 mt-1" />
       </div>
       
       {!allExtinguished && (
-        <p className="mt-4 text-sm text-muted-foreground font-sans">Tap the candles to blow them out</p>
+        <p className="mt-6 text-sm text-muted-foreground font-sans">Tap the candles to blow them out</p>
       )}
     </div>
   )
