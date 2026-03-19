@@ -79,24 +79,6 @@ const timelineMilestones = [
   },
 ]
 
-const wishes = [
-  {
-    id: "joy",
-    label: "More joy",
-    message: "I hope this year gives you lightness, laughter, and more days that feel easy on your heart.",
-  },
-  {
-    id: "adventure",
-    label: "A big adventure",
-    message: "I hope this year brings you beautiful surprises and the kind of memories you want to keep forever.",
-  },
-  {
-    id: "us",
-    label: "A little more us",
-    message: "I hope we keep finding more ways to close the distance and make something real together.",
-  },
-]
-
 const boardingPassVoiceNoteSrc = "/boarding-pass-voice.mp3"
 
 function scrollToSection(id: string) {
@@ -132,8 +114,6 @@ function scrollToSection(id: string) {
 }
 
 export function HybridStoryRoute() {
-  const [selectedWish, setSelectedWish] = useState<(typeof wishes)[number] | null>(null)
-
   return (
     <main data-birthday-theme="hybrid" className="relative min-h-screen overflow-x-hidden bg-[#120c22] text-[#f8efff]">
       <PurpleBackground />
@@ -159,7 +139,7 @@ export function HybridStoryRoute() {
           <MemoryPromptSection />
           <TimelineSection />
           <NasaSection />
-          <WishSection selectedWish={selectedWish} onSelectWish={setSelectedWish} />
+          <WishSection />
           <FinalSection />
         </div>
       </div>
@@ -536,13 +516,7 @@ function NasaSection() {
   )
 }
 
-function WishSection({
-  selectedWish,
-  onSelectWish,
-}: {
-  selectedWish: (typeof wishes)[number] | null
-  onSelectWish: (wish: (typeof wishes)[number]) => void
-}) {
+function WishSection() {
   return (
     <motion.section
       id="wish-section"
@@ -550,50 +524,35 @@ function WishSection({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="flex min-h-[80vh] w-full max-w-5xl flex-col items-center justify-center gap-8 self-center text-center scroll-mt-24"
+      className="flex min-h-[80vh] w-full max-w-5xl flex-col items-center justify-center gap-6 self-center text-center scroll-mt-24"
     >
-      <div className="space-y-4">
-        <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Small interaction</p>
-        <h2 className="font-serif text-4xl text-white md:text-6xl">Choose a wish for her.</h2>
-        <p className="mx-auto max-w-2xl text-lg leading-8 text-white/72">
-          This keeps the route interactive without breaking the emotion. One tap, one reveal, then the ending.
+      <div className="space-y-5 text-center">
+        <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Section five</p>
+        <h2 className="font-serif text-4xl text-white md:text-6xl">Another little moment for you.</h2>
+        <p className="mx-auto max-w-3xl text-lg leading-8 text-white/72">
+          I wanted this part to feel like a full-screen gift, so the image gets the whole section.
         </p>
       </div>
 
-      <div className="grid w-full gap-4 md:grid-cols-3">
-        {wishes.map((wish) => (
-          <button
-            key={wish.id}
-            type="button"
-            onClick={() => onSelectWish(wish)}
-            className={`rounded-[1.75rem] border px-5 py-5 text-left transition ${
-              selectedWish?.id === wish.id
-                ? "border-fuchsia-200/26 bg-fuchsia-200/12 text-white shadow-[0_18px_60px_rgba(162,129,255,0.18)]"
-                : "border-white/10 bg-white/6 text-white/78 hover:bg-white/8"
-            }`}
-          >
-            <p className="text-xs uppercase tracking-[0.24em] text-fuchsia-100/58">Wish</p>
-            <p className="mt-3 text-xl text-white">{wish.label}</p>
-          </button>
-        ))}
+      <div className="relative w-full overflow-hidden rounded-[2rem] border border-white/12 bg-[radial-gradient(circle_at_50%_18%,rgba(130,119,255,0.28),transparent_24%),linear-gradient(180deg,#161028_0%,#0f1022_100%)] p-5 shadow-[0_30px_120px_rgba(0,0,0,0.28)]">
+        <div className="relative overflow-hidden rounded-[1.75rem] border border-fuchsia-100/10 bg-black/18 backdrop-blur-sm">
+          <div className="relative aspect-[1380/752] w-full">
+            <Image
+              src="/hiyab-birthda.png"
+              alt="Birthday section five artwork"
+              fill
+              priority
+              className="object-cover"
+            />
+          </div>
+        </div>
       </div>
 
-      <AnimatePresence mode="wait">
-        {selectedWish ? (
-          <motion.div
-            key={selectedWish.id}
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -12 }}
-            className="max-w-2xl rounded-[2rem] border border-white/10 bg-white/6 px-6 py-6 backdrop-blur-sm"
-          >
-            <p className="text-lg leading-8 text-white/80">{selectedWish.message}</p>
-            <ContinueButton onClick={() => scrollToSection("final-message")} delay={0.15}>
-              Open the final message
-            </ContinueButton>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
+      <div className="flex justify-center">
+        <ContinueButton onClick={() => scrollToSection("final-message")} delay={0.15}>
+          Open the final message
+        </ContinueButton>
+      </div>
     </motion.section>
   )
 }
