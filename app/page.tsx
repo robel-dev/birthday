@@ -1,125 +1,40 @@
-"use client"
+import Link from "next/link"
 
-import { useState, useCallback } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { BirthdayThemeProvider, useBirthdayTheme } from "@/components/birthday-theme-provider"
-import { StarField } from "@/components/star-field"
-import { SakuraBackground } from "@/components/sakura-background"
-import { ThemeToggle } from "@/components/theme-toggle"
-import { HeroSection } from "@/components/sections/hero-section"
-import { BirthSection } from "@/components/sections/birth-section"
-import { StorySection } from "@/components/sections/story-section"
-import { SpaceSection } from "@/components/sections/space-section"
-import { WishSection } from "@/components/sections/wish-section"
-import { FinalSection } from "@/components/sections/final-section"
-
-const sectionVariants = {
-  initial: { 
-    opacity: 0, 
-    y: 60,
-    filter: "blur(8px)"
-  },
-  animate: { 
-    opacity: 1, 
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      duration: 1.2,
-      ease: [0.25, 0.1, 0.25, 1]
-    }
-  },
-  exit: { 
-    opacity: 0, 
-    y: -40,
-    filter: "blur(4px)",
-    transition: {
-      duration: 0.8,
-      ease: [0.25, 0.1, 0.25, 1]
-    }
-  }
-}
-
-function BirthdayContent() {
-  const [currentSection, setCurrentSection] = useState(0)
-  const { theme } = useBirthdayTheme()
-
-  const goToNextSection = useCallback(() => {
-    setCurrentSection(prev => Math.min(prev + 1, 5))
-  }, [])
-
-  const sections = [
-    <HeroSection 
-      key="hero"
-      name="My Love" 
-      onContinue={goToNextSection} 
-    />,
-    <BirthSection 
-      key="birth"
-      onContinue={goToNextSection} 
-    />,
-    <StorySection 
-      key="story"
-      onContinue={goToNextSection} 
-    />,
-    <SpaceSection 
-      key="space"
-      onContinue={goToNextSection} 
-    />,
-    <WishSection 
-      key="wish"
-      onContinue={goToNextSection} 
-    />,
-    <FinalSection key="final" />
-  ]
-
+export default function HomePage() {
   return (
-    <main className="relative bg-background min-h-screen overflow-hidden">
-      <AnimatePresence mode="wait">
-        {theme === "starry" ? (
-          <motion.div
-            key="starry-bg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+    <main className="relative flex min-h-screen items-center justify-center overflow-hidden bg-background px-6 py-16">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,0.18),transparent_35%),linear-gradient(180deg,rgba(10,10,26,0.96),rgba(10,10,26,1))]" />
+      <div className="relative z-10 mx-auto flex w-full max-w-5xl flex-col items-center gap-10 text-center">
+        <div className="space-y-4">
+          <p className="font-sans text-sm uppercase tracking-[0.35em] text-primary/80">Choose a route</p>
+          <h1 className="font-serif text-4xl text-foreground md:text-6xl">Two versions of the same journey</h1>
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground">
+            Sakura and Starry Night now live on separate routes so each experience has its own URL.
+          </p>
+        </div>
+        <div className="grid w-full gap-6 md:grid-cols-2">
+          <Link
+            href="/starry-night"
+            className="group rounded-[2rem] border border-primary/20 bg-white/5 p-8 text-left backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white/8"
           >
-            <StarField />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="sakura-bg"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8 }}
+            <p className="font-sans text-sm uppercase tracking-[0.3em] text-primary/70">Route One</p>
+            <h2 className="mt-4 font-serif text-3xl text-foreground">Starry Night</h2>
+            <p className="mt-4 text-base text-muted-foreground">
+              The original midnight palette with the star field background.
+            </p>
+          </Link>
+          <Link
+            href="/sakura"
+            className="group rounded-[2rem] border border-primary/20 bg-white/5 p-8 text-left backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:border-primary/40 hover:bg-white/8"
           >
-            <SakuraBackground />
-          </motion.div>
-        )}
-      </AnimatePresence>
-      
-      <ThemeToggle />
-      
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentSection}
-          variants={sectionVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="min-h-screen"
-        >
-          {sections[currentSection]}
-        </motion.div>
-      </AnimatePresence>
+            <p className="font-sans text-sm uppercase tracking-[0.3em] text-primary/70">Route Two</p>
+            <h2 className="mt-4 font-serif text-3xl text-foreground">Sakura</h2>
+            <p className="mt-4 text-base text-muted-foreground">
+              The softer blossom palette with the sakura background.
+            </p>
+          </Link>
+        </div>
+      </div>
     </main>
-  )
-}
-
-export default function BirthdayJourney() {
-  return (
-    <BirthdayThemeProvider>
-      <BirthdayContent />
-    </BirthdayThemeProvider>
   )
 }

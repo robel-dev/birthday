@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Cormorant_Garamond, Inter } from 'next/font/google'
+import { Cormorant_Garamond, Inter, Manrope } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
@@ -9,7 +9,7 @@ const cormorant = Cormorant_Garamond({
   variable: "--font-serif"
 })
 
-const inter = Inter({ 
+const inter = Manrope({ 
   subsets: ["latin"],
   variable: "--font-sans"
 })
