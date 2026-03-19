@@ -95,6 +95,27 @@
   --ring: oklch(0.55 0.15 360);
 }
 
+/* Hybrid Theme */
+[data-birthday-theme="hybrid"] {
+  --background: oklch(0.17 0.03 300);
+  --foreground: oklch(0.94 0.02 85);
+  --card: oklch(0.22 0.03 300);
+  --card-foreground: oklch(0.94 0.02 85);
+  --popover: oklch(0.22 0.03 300);
+  --popover-foreground: oklch(0.94 0.02 85);
+  --primary: oklch(0.84 0.07 85);
+  --primary-foreground: oklch(0.17 0.03 300);
+  --secondary: oklch(0.28 0.03 300);
+  --secondary-foreground: oklch(0.94 0.02 85);
+  --muted: oklch(0.28 0.03 300);
+  --muted-foreground: oklch(0.8 0.02 85);
+  --accent: oklch(0.72 0.12 340);
+  --accent-foreground: oklch(0.97 0.01 85);
+  --border: oklch(0.36 0.03 300);
+  --input: oklch(0.24 0.03 300);
+  --ring: oklch(0.84 0.07 85);
+}
+
 @theme inline {
   --font-sans: var(--font-sans), 'Inter', system-ui, sans-serif;
   --font-serif: var(--font-serif), 'Cormorant Garamond', Georgia, serif;
