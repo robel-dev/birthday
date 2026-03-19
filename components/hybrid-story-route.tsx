@@ -7,30 +7,6 @@ import { AnimatePresence, motion } from "framer-motion"
 import { ArrowLeft, Mic, Rocket, Sparkles, Ticket } from "lucide-react"
 import { ContinueButton } from "@/components/continue-button"
 
-const slideshowMoments = [
-  {
-    title: "The first feeling",
-    line: "This is where your voice can talk about the first time she felt different from everyone else.",
-    note: "Pair this with one of your favorite photos or the first screenshot that still matters.",
-    image: "/images/IMG-20260129-WA0001.jpg",
-    chat: "I did not expect one conversation to stay with me like that.",
-  },
-  {
-    title: "Us in messages",
-    line: "Use a real line from your chats here, then let your narration explain why it still matters to you.",
-    note: "A screenshot, a soft zoom, and one sentence at a time will feel more intimate than a busy collage.",
-    image: "/images/IMG_20260118_111214_759.jpg",
-    chat: "Somehow even the smallest messages started feeling important.",
-  },
-  {
-    title: "What I wish for you",
-    line: "This is the slide where you shift from memories into your birthday wish and let the next surprise land.",
-    note: "It should feel like a breath before the NASA reveal.",
-    image: "/images/20250221_175850585.jpg",
-    chat: "I wanted to make you feel celebrated, seen, and loved.",
-  },
-]
-
 const memoryCarouselImages = [
   "/images/IMG-20260204-WA0014.jpg",
   "/images/DSC05305.jpg",
@@ -38,6 +14,69 @@ const memoryCarouselImages = [
   "/images/IMG_20250106_131646_586.jpg",
   "/images/IMG-20260117-WA0019.jpg",
   "/images/IMG-20260311-WA0004.jpg",
+]
+
+const timelineMilestones = [
+  {
+    date: "March 23, 2002",
+    title: "Yene konjo you came into the world",
+    line: "The day a beautiful life began, full of quiet strength, brilliance, and heart.",
+    image: "/images/IMG-20260204-WA0014.jpg",
+  },
+  {
+    date: "May 2024",
+    title: "Your first internship at iCog AGI Engineer journey jemere",
+    line: "One of the first big steps in the future she was building with her own hands.",
+    image: "/images/IMG_20250106_131601_611.jpg",
+  },
+  {
+    date: "September 2024",
+    title: "Machine Learning Engineer at iCog",
+    line: "A moment that reflected her discipline, her talent, and how far she had already come. Betam yene fiker!",
+    image: "/images/IMG-20260311-WA0004.jpg",
+  },
+  {
+    date: "February 22, 2025",
+    title: "Graduation",
+    line: "A proud chapter, 3.97 yene konjo wow yene amazing you earned it through patience, hard work, and so much perseverance.",
+    image: "/images/IMG-20260128-WA0028.jpg",
+  },
+  {
+    date: "June 2025",
+    title: "Kifiya Youth Advisory Group member",
+    line: "Another sign that her voice belonged in rooms where real change begins.",
+    image: "/images/IMG-20260117-WA0019.jpg",
+  },
+  {
+    date: "July 2025",
+    title: "International Service Director at Rotaract Club of Ra'ey",
+    line: "Yene international director.",
+    image: "/images/IMG_20250106_131646_586.jpg",
+  },
+  {
+    date: "September 2025",
+    title: "Mastercard Foundation Youth Advisory Communications Ambassador",
+    line: "Yene MC Yene HOST Yene Eskista instructor lol .",
+    image: "/images/20251116_181854.jpg",
+  },
+  {
+    date: "December 13, 2025",
+    title: "We first met on LinkedIn",
+    line: "The day her story quietly crossed into mine.",
+    image: "/images/IMG-20260129-WA0001.jpg",
+  },
+  {
+    date: "February 24, 2026",
+    title: "She said yes to dating",
+    line: "One gentle yes, and suddenly my days began to feel different.",
+    image: "/images/IMG_20260118_111214_759.jpg",
+  },
+  {
+    date: "March 03, 2026",
+    title: "She said yes to being my girlfriend",
+    line: "One of the sweetest answers I have ever heard, and one I will always be grateful for.",
+    image: "/images/20250221_175850585.jpg",
+  },
 ]
 
 const wishes = [
@@ -94,7 +133,7 @@ export function HybridStoryRoute() {
   const [selectedWish, setSelectedWish] = useState<(typeof wishes)[number] | null>(null)
 
   return (
-    <main data-birthday-theme="hybrid" className="relative min-h-screen overflow-hidden bg-[#120c22] text-[#f8efff]">
+    <main data-birthday-theme="hybrid" className="relative min-h-screen overflow-x-hidden bg-[#120c22] text-[#f8efff]">
       <PurpleBackground />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 md:px-10">
@@ -116,7 +155,7 @@ export function HybridStoryRoute() {
         <div className="flex flex-col gap-16 py-10 md:gap-24 md:py-14">
           <IntroSection />
           <MemoryPromptSection />
-          <SlideshowSection />
+          <TimelineSection />
           <NasaSection />
           <WishSection selectedWish={selectedWish} onSelectWish={setSelectedWish} />
           <FinalSection />
@@ -190,7 +229,7 @@ function MemoryPromptSection() {
         <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">A little preview</p>
         <h2 className="font-serif text-4xl text-white md:text-6xl">A carousel of my favorite views of you.</h2>
         <p className="mx-auto max-w-2xl text-lg leading-8 text-white/72">
-          I wanted this part to drift softly before the main slideshow begins.
+          I wanted this part to drift softly before the next part of your story begins.
         </p>
       </div>
 
@@ -220,142 +259,139 @@ function MemoryPromptSection() {
         </motion.div>
       </div>
 
-      <ContinueButton onClick={() => scrollToSection("slideshow")} delay={0.4}>
+      <ContinueButton onClick={() => scrollToSection("timeline")} delay={0.4}>
         Continue downward
       </ContinueButton>
     </motion.section>
   )
 }
 
-function SlideshowSection() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const currentMoment = slideshowMoments[currentSlide]
+function TimelineSection() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const activeMilestone = timelineMilestones[activeIndex]
 
   useEffect(() => {
     const intervalId = window.setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slideshowMoments.length)
-    }, 4200)
+      setActiveIndex((prev) => (prev + 1) % timelineMilestones.length)
+    }, 5600)
 
     return () => window.clearInterval(intervalId)
   }, [])
 
   return (
     <motion.section
-      id="slideshow"
+      id="timeline"
       initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.08 }}
+      viewport={{ once: true, amount: 0.2 }}
       transition={{ duration: 0.7, ease: "easeOut" }}
-      className="flex min-h-screen w-full max-w-5xl flex-col gap-8 self-center scroll-mt-24"
-      >
-        <div className="space-y-4 text-center">
-          <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Voiceover slideshow</p>
-          <h2 className="font-serif text-4xl text-white md:text-6xl">A little carousel of us.</h2>
-          <p className="mx-auto max-w-3xl text-lg leading-8 text-white/72">
-            The photos move on their own now, like the story is opening by itself.
-          </p>
-        </div>
-
-      <motion.article
-        initial={{ opacity: 0, y: 36 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.25 }}
-        transition={{ duration: 0.65, ease: "easeOut" }}
-        className="overflow-hidden rounded-[2rem] border border-white/12 bg-white/6 shadow-[0_30px_120px_rgba(0,0,0,0.22)] backdrop-blur-sm"
-      >
-        <div className="relative aspect-[4/3] overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentSlide}
-              initial={{ x: "18%", opacity: 0.7 }}
-              animate={{ x: "0%", opacity: 1 }}
-              exit={{ x: "-18%", opacity: 0.55 }}
-              transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute inset-0"
-            >
-              <Image
-                src={currentMoment.image}
-                alt={currentMoment.title}
-                fill
-                priority={currentSlide === 0}
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#120c22] via-[#120c22]/20 to-transparent" />
-            </motion.div>
-          </AnimatePresence>
-
-          <div className="absolute left-5 top-5 rounded-full border border-white/12 bg-black/20 px-4 py-2 text-xs uppercase tracking-[0.24em] text-white/75 backdrop-blur-sm">
-            Slide {currentSlide + 1} / {slideshowMoments.length}
+      className="flex min-h-[85vh] w-full max-w-6xl flex-col items-center justify-center gap-8 self-center scroll-mt-24"
+    >
+      <div className="mx-auto flex w-full items-center justify-center px-4 md:px-0">
+        <div className="flex w-full flex-col gap-8 rounded-[2rem] border border-white/10 bg-white/6 px-6 py-8 backdrop-blur-sm md:px-8">
+          <div className="space-y-4 text-center">
+            <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Her timeline</p>
+            <h2 className="font-serif text-4xl text-white md:text-6xl">The landmarks that shaped her story.</h2>
+            <p className="mx-auto max-w-3xl text-lg leading-8 text-white/72">
+              Let it play on its own, one milestone at a time.
+            </p>
           </div>
 
-          <div className="absolute bottom-5 left-5 right-5 space-y-4">
-            <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-200/16 bg-fuchsia-200/10 px-4 py-2 text-xs text-fuchsia-50/90 backdrop-blur-sm">
-              <Mic className="h-3.5 w-3.5" />
-              Voiceover moment
+          <div className="grid gap-8 md:grid-cols-[0.92fr_1.08fr] md:items-center">
+            <div className="relative hidden h-[38rem] md:block">
+              <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/10" />
+              <motion.div
+                className="absolute left-1/2 top-0 w-px -translate-x-1/2 bg-gradient-to-b from-fuchsia-200 via-violet-200 to-indigo-200"
+                style={{ height: `${((activeIndex + 1) / timelineMilestones.length) * 100}%` }}
+                transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+              />
+
+              <div className="relative flex h-full flex-col justify-between py-4">
+                {timelineMilestones.map((milestone, index) => (
+                  <div key={milestone.title} className="relative flex items-center gap-4">
+                    <div className="flex w-[calc(50%-1rem)] justify-end pr-6 text-right">
+                      <span
+                        className={`text-xs uppercase tracking-[0.22em] transition duration-500 ${
+                          index <= activeIndex ? "text-fuchsia-100/80" : "text-white/28"
+                        }`}
+                      >
+                        {milestone.date}
+                      </span>
+                    </div>
+                    <div
+                      className={`relative z-10 h-3.5 w-3.5 shrink-0 rounded-full border transition duration-500 ${
+                        index === activeIndex
+                          ? "border-fuchsia-100 bg-fuchsia-200 shadow-[0_0_20px_rgba(244,114,182,0.45)]"
+                          : index < activeIndex
+                            ? "border-fuchsia-100/60 bg-fuchsia-100/70"
+                            : "border-white/20 bg-[#120c22]"
+                      }`}
+                    />
+                    <div className="w-[calc(50%-1rem)] pl-6">
+                      <span
+                        className={`font-serif text-lg transition duration-500 ${
+                          index === activeIndex ? "text-white" : "text-white/34"
+                        }`}
+                      >
+                        {milestone.title}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <div>
+
+            <div className="flex items-center">
               <AnimatePresence mode="wait">
                 <motion.div
-                  key={`copy-${currentSlide}`}
-                  initial={{ x: 28, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  exit={{ x: -28, opacity: 0 }}
-                  transition={{ duration: 0.55, ease: "easeOut" }}
+                  key={activeMilestone.title}
+                  initial={{ opacity: 0, y: 18, scale: 0.985 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -12, scale: 0.992 }}
+                  transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
+                  className="relative w-full rounded-[1.75rem] border border-white/10 bg-black/16 p-6 md:p-8"
                 >
-                  <h3 className="max-w-xl font-serif text-4xl leading-tight text-white md:text-5xl">
-                    {currentMoment.title}
+                  <div className="absolute right-5 top-5 h-16 w-16 overflow-hidden rounded-2xl border border-white/10 bg-white/6 shadow-[0_12px_32px_rgba(0,0,0,0.18)] md:h-20 md:w-20">
+                    <Image
+                      src={activeMilestone.image}
+                      alt={activeMilestone.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                  <p className="text-xs uppercase tracking-[0.28em] text-fuchsia-100/60">
+                    {activeMilestone.date}
+                  </p>
+                  <h3 className="mt-4 max-w-[calc(100%-5rem)] font-serif text-4xl leading-tight text-white md:max-w-[calc(100%-6rem)] md:text-5xl">
+                    {activeMilestone.title}
                   </h3>
-                  <p className="mt-3 max-w-xl text-base leading-7 text-white/72">{currentMoment.line}</p>
+                  <p className="mt-5 max-w-xl text-lg leading-8 text-white/76">
+                    {activeMilestone.line}
+                  </p>
                 </motion.div>
               </AnimatePresence>
             </div>
           </div>
-        </div>
 
-        <div className="grid gap-5 p-6 md:grid-cols-2">
-          <div className="rounded-[1.75rem] border border-white/10 bg-black/16 p-5">
-            <p className="text-xs uppercase tracking-[0.28em] text-fuchsia-100/55">What this slide does</p>
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={`note-${currentSlide}`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                className="mt-4 text-lg leading-8 text-white/80"
-              >
-                {currentMoment.note}
-              </motion.p>
-            </AnimatePresence>
-          </div>
-          <div className="rounded-[1.75rem] border border-white/10 bg-black/16 p-5">
-            <p className="text-xs uppercase tracking-[0.28em] text-fuchsia-100/55">Chat texture</p>
-            <AnimatePresence mode="wait">
-              <motion.p
-                key={`chat-${currentSlide}`}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                className="mt-4 rounded-[1.25rem] bg-black/18 px-4 py-3 text-base leading-7 text-white/80"
-              >
-                {currentMoment.chat}
-              </motion.p>
-            </AnimatePresence>
+          <div className="md:hidden">
+            <div className="grid gap-3">
+              {timelineMilestones.map((milestone, index) => (
+                <div
+                  key={`${milestone.title}-mobile`}
+                  className={`rounded-[1.25rem] border px-4 py-3 transition duration-500 ${
+                    index === activeIndex ? "border-fuchsia-200/30 bg-fuchsia-200/10" : "border-white/10 bg-black/12"
+                  }`}
+                >
+                  <p className="text-xs uppercase tracking-[0.22em] text-fuchsia-100/60">{milestone.date}</p>
+                  <p className={`mt-2 font-serif ${index === activeIndex ? "text-white" : "text-white/45"}`}>
+                    {milestone.title}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        <div className="flex items-center justify-center gap-2 px-6 pb-6">
-          {slideshowMoments.map((moment, index) => (
-            <span
-              key={moment.title}
-              className={`h-2.5 rounded-full transition-all duration-500 ${
-                index === currentSlide ? "w-10 bg-fuchsia-200" : "w-2.5 bg-white/20"
-              }`}
-            />
-          ))}
-        </div>
-      </motion.article>
+      </div>
 
       <div className="flex justify-center">
         <ContinueButton onClick={() => scrollToSection("nasa-reveal")} delay={0.15}>
