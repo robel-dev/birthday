@@ -2,9 +2,9 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { ArrowLeft, Mic, Rocket, Sparkles, Ticket } from "lucide-react"
+import { ArrowLeft, Mic, Rocket, Sparkles } from "lucide-react"
 import { ContinueButton } from "@/components/continue-button"
 
 const memoryCarouselImages = [
@@ -21,19 +21,19 @@ const timelineMilestones = [
     date: "March 23, 2002",
     title: "Yene konjo you came into the world",
     line: "The day a beautiful life began, full of quiet strength, brilliance, and heart.",
-    image: "/images/IMG-20260204-WA0014.jpg",
+    image: "/images/baby.jpeg",
   },
   {
     date: "May 2024",
     title: "Your first internship at iCog AGI Engineer journey jemere",
     line: "One of the first big steps in the future she was building with her own hands.",
-    image: "/images/IMG_20250106_131601_611.jpg",
+    image: "/images/IMG-20260311-WA0004.jpg",
   },
   {
     date: "September 2024",
     title: "Machine Learning Engineer at iCog",
     line: "A moment that reflected her discipline, her talent, and how far she had already come. Betam yene fiker!",
-    image: "/images/IMG-20260311-WA0004.jpg",
+    image: "/images/icog.png",
   },
   {
     date: "February 22, 2025",
@@ -45,7 +45,7 @@ const timelineMilestones = [
     date: "June 2025",
     title: "Kifiya Youth Advisory Group member",
     line: "Another sign that her voice belonged in rooms where real change begins.",
-    image: "/images/IMG-20260117-WA0019.jpg",
+    image: "/images/IMG_20260118_111214_759.jpg",
   },
   {
     date: "July 2025",
@@ -57,19 +57,19 @@ const timelineMilestones = [
     date: "September 2025",
     title: "Mastercard Foundation Youth Advisory Communications Ambassador",
     line: "Yene MC Yene HOST Yene Eskista instructor lol .",
-    image: "/images/20251116_181854.jpg",
+    image: "/images/DSC05305.jpg",
   },
   {
     date: "December 13, 2025",
     title: "We first met on LinkedIn",
     line: "The day her story quietly crossed into mine.",
-    image: "/images/IMG-20260129-WA0001.jpg",
+    image: "/images/linkedin.png",
   },
   {
     date: "February 24, 2026",
     title: "She said yes to dating",
     line: "One gentle yes, and suddenly my days began to feel different.",
-    image: "/images/IMG_20260118_111214_759.jpg",
+    image: "/images/IMG-20260129-WA0001.jpg",
   },
   {
     date: "March 03, 2026",
@@ -96,6 +96,8 @@ const wishes = [
     message: "I hope we keep finding more ways to close the distance and make something real together.",
   },
 ]
+
+const boardingPassVoiceNoteSrc = "/boarding-pass-voice.mp3"
 
 function scrollToSection(id: string) {
   const element = document.getElementById(id)
@@ -403,6 +405,31 @@ function TimelineSection() {
 }
 
 function NasaSection() {
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [isVoicePlaying, setIsVoicePlaying] = useState(false)
+  const [showQuestionPulse, setShowQuestionPulse] = useState(true)
+
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setShowQuestionPulse(false)
+    }, 2600)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [])
+
+  const handleBoardingPassQuestionClick = async () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    try {
+      audio.currentTime = 0
+      await audio.play()
+      setIsVoicePlaying(true)
+    } catch {
+      setIsVoicePlaying(false)
+    }
+  }
+
   return (
     <motion.section
       id="nasa-reveal"
@@ -416,8 +443,8 @@ function NasaSection() {
         <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Midpoint reveal</p>
         <h2 className="font-serif text-4xl text-white md:text-6xl">One glowing surprise in the middle.</h2>
         <p className="mx-auto max-w-3xl text-lg leading-8 text-white/72">
-          This should feel like the signature visual moment. It works because the rest of the route is softer
-          and more personal, so the ticket stands out instead of competing with everything else.
+          I sent your name among the stars, where even the Moon will learn your light,
+              So when I look up at the night sky, I’ll know a part of you is shining back at me.
         </p>
       </div>
 
@@ -442,33 +469,60 @@ function NasaSection() {
               <Rocket className="h-4 w-4 text-fuchsia-200" />
               Birthday mission
             </span>
-            <Ticket className="h-4 w-4 text-fuchsia-200" />
+            <motion.button
+              type="button"
+              onClick={handleBoardingPassQuestionClick}
+              aria-label="Play the boarding pass voice note"
+              animate={
+                showQuestionPulse
+                  ? {
+                      scale: [1, 1.14, 0.97, 1.12, 1],
+                      boxShadow: [
+                        "0 0 0 rgba(244,114,182,0.00)",
+                        "0 0 28px rgba(244,114,182,0.28)",
+                        "0 0 0 rgba(244,114,182,0.00)",
+                        "0 0 22px rgba(244,114,182,0.22)",
+                        "0 0 0 rgba(244,114,182,0.00)",
+                      ],
+                    }
+                  : {
+                      scale: 1,
+                      boxShadow: isVoicePlaying
+                        ? "0 0 22px rgba(244,114,182,0.24)"
+                        : "0 0 0 rgba(244,114,182,0.00)",
+                    }
+              }
+              transition={{
+                duration: showQuestionPulse ? 2.4 : 0.25,
+                ease: "easeInOut",
+              }}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-fuchsia-200/18 bg-fuchsia-200/10 text-lg font-serif leading-none text-fuchsia-50 transition hover:border-fuchsia-100/30 hover:bg-fuchsia-200/14"
+            >
+              ?
+            </motion.button>
           </div>
 
-          <div className="mt-8 space-y-6">
-            <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-white/50">Passenger</p>
-              <p className="mt-2 font-serif text-4xl text-white">Her Name</p>
-            </div>
+          <audio
+            ref={audioRef}
+            src={boardingPassVoiceNoteSrc}
+            preload="none"
+            onPlay={() => setIsVoicePlaying(true)}
+            onPause={() => setIsVoicePlaying(false)}
+            onEnded={() => setIsVoicePlaying(false)}
+            onError={() => setIsVoicePlaying(false)}
+          />
 
-            <div className="grid gap-4 rounded-[1.5rem] border border-white/10 bg-white/6 p-4 md:grid-cols-3">
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-white/45">From</p>
-                <p className="mt-2 text-lg text-white/84">Earth</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-white/45">To</p>
-                <p className="mt-2 text-lg text-white/84">Mars & Beyond</p>
-              </div>
-              <div>
-                <p className="text-xs uppercase tracking-[0.24em] text-white/45">Seat</p>
-                <p className="mt-2 text-lg text-fuchsia-100">03.23</p>
-              </div>
+          <div className="mt-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/6 p-3 md:p-4">
+            <div className="relative overflow-hidden rounded-[1.2rem] border border-white/10 bg-[#120c22]/40 shadow-[0_18px_50px_rgba(0,0,0,0.22)]">
+              <Image
+                src="/boarding-pass.jpg"
+                alt="Birthday boarding pass"
+                width={1600}
+                height={900}
+                className="h-auto w-full object-contain"
+                priority
+              />
             </div>
-
-            <p className="max-w-md text-sm leading-7 text-white/68">
-              Replace the placeholder name with hers and keep the copy extremely short so it lands as a visual gift.
-            </p>
           </div>
         </div>
       </div>
