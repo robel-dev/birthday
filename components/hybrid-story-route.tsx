@@ -1,10 +1,9 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { ArrowLeft, Mic, Rocket, Sparkles } from "lucide-react"
+import { Mic, Rocket } from "lucide-react"
 import { ContinueButton } from "@/components/continue-button"
 
 const memoryCarouselImages = [
@@ -12,8 +11,16 @@ const memoryCarouselImages = [
   "/images/DSC05305.jpg",
   "/images/20251116_181854.jpg",
   "/images/IMG_20250106_131646_586.jpg",
-  "/images/IMG-20260117-WA0019.jpg",
   "/images/IMG-20260311-WA0004.jpg",
+  "/images/IMG-20260128-WA0028.jpg",
+  // "/images/IMG_20260118_111214_759.jpg",
+  "/images/IMG-20260129-WA0001.jpg",
+  "/images/20250221_175850585.jpg",
+  "/images/baby.jpeg",
+  "/images/icog.png",
+  "/images/linkedin.png",
+  "/images/IMG-20260203-WA0036.jpg",
+  "/images/IMG_20250106_131601_611.jpg",
 ]
 
 const timelineMilestones = [
@@ -26,13 +33,13 @@ const timelineMilestones = [
   {
     date: "May 2024",
     title: "Your first internship at iCog AGI Engineer journey jemere",
-    line: "One of the first big steps in the future she was building with her own hands.",
+    line: "One of the first big steps in the future you are building with your own hands babye",
     image: "/images/IMG-20260311-WA0004.jpg",
   },
   {
     date: "September 2024",
     title: "Machine Learning Engineer at iCog",
-    line: "A moment that reflected her discipline, her talent, and how far she had already come. Betam yene fiker!",
+    line: "A moment that reflected your discipline, talent, and how far you had already come. Betam yene fiker!",
     image: "/images/icog.png",
   },
   {
@@ -44,7 +51,7 @@ const timelineMilestones = [
   {
     date: "June 2025",
     title: "Kifiya Youth Advisory Group member",
-    line: "Another sign that her voice belonged in rooms where real change begins.",
+    line: "Another sign that your voice belonged in rooms where real change begins.",
     image: "/images/IMG_20260118_111214_759.jpg",
   },
   {
@@ -62,24 +69,25 @@ const timelineMilestones = [
   {
     date: "December 13, 2025",
     title: "We first met on LinkedIn",
-    line: "The day her story quietly crossed into mine.",
+    line: "The day your story quietly crossed into mine babye.",
     image: "/images/linkedin.png",
   },
   {
     date: "February 24, 2026",
-    title: "She said yes to dating",
+    title: "Babye said yes to dating",
     line: "One gentle yes, and suddenly my days began to feel different.",
     image: "/images/IMG-20260129-WA0001.jpg",
   },
   {
     date: "March 03, 2026",
-    title: "She said yes to being my girlfriend",
+    title: "Yene fiker said yes to being my girlfriend",
     line: "One of the sweetest answers I have ever heard, and one I will always be grateful for.",
     image: "/images/20250221_175850585.jpg",
   },
 ]
 
-const boardingPassVoiceNoteSrc = "/boarding-pass-voice.mp3"
+const nasaVoiceNoteSrc = "/audio/space-explain"
+const finalMessageVoiceNoteSrc = "/audio/message.mp3"
 
 function scrollToSection(id: string) {
   const element = document.getElementById(id)
@@ -119,21 +127,6 @@ export function HybridStoryRoute() {
       <PurpleBackground />
 
       <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-8 md:px-10">
-        <div className="flex items-center justify-between gap-4">
-          <Link
-            href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/6 px-4 py-2 text-sm text-white/80 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/10 hover:text-white"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to routes
-          </Link>
-
-          <div className="inline-flex items-center gap-2 rounded-full border border-fuchsia-200/20 bg-fuchsia-200/10 px-4 py-2 text-xs uppercase tracking-[0.24em] text-fuchsia-100/85">
-            <Sparkles className="h-4 w-4" />
-            Hybrid story route
-          </div>
-        </div>
-
         <div className="flex flex-col gap-16 py-10 md:gap-24 md:py-14">
           <IntroSection />
           <MemoryPromptSection />
@@ -186,7 +179,7 @@ function IntroSection() {
         Sweetheart <span aria-hidden="true">❤️</span>
       </h1>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72">
-        I made this little journey for you yene fiker ❤️.
+        I made this little thing for you yene fiker ❤️.
       </p>
       <ContinueButton onClick={() => scrollToSection("memory-prompt")} delay={0.35}>
         Start
@@ -211,14 +204,20 @@ function MemoryPromptSection() {
         <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">A little preview</p>
         <h2 className="font-serif text-4xl text-white md:text-6xl">A carousel of my favorite views of you.</h2>
         <p className="mx-auto max-w-2xl text-lg leading-8 text-white/72">
-          I wanted this part to drift softly before the next part of your story begins.
+          A million little moments,
+A thousand different smiles.
+In every frame, a new surprise,
+In every glance, the world stands still.
+No lens could ever truly capture
+The way my soul looks at you,
+But I’ll spend forever enjoying the view. Oh what a view babye! what a view 😍
         </p>
       </div>
 
       <div className="w-full overflow-hidden rounded-[2rem] border border-white/10 bg-white/6 py-6 backdrop-blur-sm">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+          transition={{ duration: 75, repeat: Infinity, ease: "linear" }}
           className="flex w-max gap-4 px-4"
         >
           {marqueeImages.map((image, index) => (
@@ -272,10 +271,10 @@ function TimelineSection() {
       <div className="mx-auto flex w-full items-center justify-center px-4 md:px-0">
         <div className="flex w-full flex-col gap-8 rounded-[2rem] border border-white/10 bg-white/6 px-6 py-8 backdrop-blur-sm md:px-8">
           <div className="space-y-4 text-center">
-            <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Her timeline</p>
-            <h2 className="font-serif text-4xl text-white md:text-6xl">The landmarks that shaped her story.</h2>
+            <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Timeline</p>
+            <h2 className="font-serif text-4xl text-white md:text-6xl">The landmarks that shaped your story so far babye ❤️.</h2>
             <p className="mx-auto max-w-3xl text-lg leading-8 text-white/72">
-              Let it play on its own, one milestone at a time.
+              
             </p>
           </div>
 
@@ -425,7 +424,7 @@ function NasaSection() {
       className="flex min-h-[80vh] w-full max-w-5xl flex-col justify-center gap-6 self-center scroll-mt-24"
     >
       <div className="space-y-5 text-center">
-        <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Midpoint reveal</p>
+        <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60"></p>
         <h2 className="font-serif text-4xl text-white md:text-6xl">One glowing surprise in the middle.</h2>
         <p className="mx-auto max-w-3xl text-lg leading-8 text-white/72">
           I sent your name among the stars, where even the Moon will learn your light,
@@ -489,7 +488,7 @@ function NasaSection() {
 
           <audio
             ref={audioRef}
-            src={boardingPassVoiceNoteSrc}
+            src={nasaVoiceNoteSrc}
             preload="none"
             onPlay={() => setIsVoicePlaying(true)}
             onPause={() => setIsVoicePlaying(false)}
@@ -586,7 +585,7 @@ function WishSection() {
         <p className="text-sm uppercase tracking-[0.32em] text-fuchsia-100/60">Section five</p>
         <h2 className="font-serif text-4xl text-white md:text-6xl">Another little moment for you.</h2>
         <p className="mx-auto max-w-3xl text-lg leading-8 text-white/72">
-          I wanted this part to feel like a full-screen gift, so the image gets the whole section.
+          Yene fiker Imagine we are next to each other babye, and I am whispering in your ear how much I love you, how proud I am of you, and how excited I am for everything that is coming next in your story.
         </p>
       </div>
 
@@ -614,11 +613,25 @@ function WishSection() {
 }
 
 function FinalSection() {
-  const finalGallery = [
-    "/images/IMG_20250106_131646_586.jpg",
-    "/images/IMG-20260117-WA0019.jpg",
-    "/images/IMG-20260311-WA0004.jpg",
+  const waveformBars = [
+    0.42, 0.78, 0.56, 0.92, 0.48, 0.74, 0.38, 0.86, 0.52, 0.68, 0.44, 0.8, 0.5, 0.72, 0.4, 0.9, 0.46, 0.76,
+    0.58, 0.84, 0.43, 0.7, 0.49, 0.88,
   ]
+  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [isFinalVoicePlaying, setIsFinalVoicePlaying] = useState(false)
+
+  const handleFinalVoiceClick = async () => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    try {
+      audio.currentTime = 0
+      await audio.play()
+      setIsFinalVoicePlaying(true)
+    } catch {
+      setIsFinalVoicePlaying(false)
+    }
+  }
 
   return (
     <motion.section
@@ -632,41 +645,81 @@ function FinalSection() {
       <div className="rounded-full border border-fuchsia-200/16 bg-fuchsia-200/10 px-4 py-2 text-sm text-fuchsia-50/90">
         Final message
       </div>
-      <h2 className="mt-8 font-serif text-5xl leading-tight text-white md:text-7xl">Happy Birthday.</h2>
+      <h2 className="mt-8 font-serif text-5xl leading-tight text-white md:text-7xl">እንኳዕ ተወለድኪ</h2>
       <p className="mt-6 max-w-2xl text-lg leading-8 text-white/72">
-        This is where your real closing words should go. Keep it direct, let your voice do most of the work,
-        and end with the clearest line in the whole route.
+         ርሑስ ዕለተ ልደት ጽብቅቲ ህያብዬ ናተይ ናይበይነይ 🎂 🎉 🎁
       </p>
 
-      <div className="mt-8 w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/6 p-6 text-left backdrop-blur-sm">
+      <button
+        type="button"
+        onClick={handleFinalVoiceClick}
+        className="mt-8 w-full max-w-xl rounded-[2rem] border border-white/10 bg-white/6 p-6 text-left backdrop-blur-sm transition hover:border-fuchsia-200/24 hover:bg-white/8"
+      >
+        <audio
+          ref={audioRef}
+          src={finalMessageVoiceNoteSrc}
+          preload="none"
+          onPlay={() => setIsFinalVoicePlaying(true)}
+          onPause={() => setIsFinalVoicePlaying(false)}
+          onEnded={() => setIsFinalVoicePlaying(false)}
+          onError={() => setIsFinalVoicePlaying(false)}
+        />
         <div className="flex items-center gap-3 text-sm text-white/68">
-          <Mic className="h-4 w-4 text-fuchsia-200" />
-          Final voice note placeholder
+          <motion.span
+            animate={{
+              scale: isFinalVoicePlaying ? [1, 1.08, 1] : 1,
+              opacity: isFinalVoicePlaying ? [0.8, 1, 0.8] : 1,
+            }}
+            transition={{
+              duration: 1.1,
+              repeat: isFinalVoicePlaying ? Infinity : 0,
+              ease: "easeInOut",
+            }}
+            className="inline-flex"
+          >
+            <Mic className="h-4 w-4 text-fuchsia-200" />
+          </motion.span>
+          
         </div>
-        <div className="mt-5 h-2 rounded-full bg-white/10">
-          <div className="h-full w-[46%] rounded-full bg-gradient-to-r from-fuchsia-200 via-violet-200 to-indigo-200" />
+        <div className="mt-5 flex h-14 items-center gap-1.5 overflow-hidden rounded-[1.25rem] border border-white/8 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.02))] px-3">
+          {waveformBars.map((height, index) => (
+            <div key={index} className="flex h-full flex-1 items-center justify-center">
+              <motion.span
+                animate={{
+                  height: isFinalVoicePlaying
+                    ? [`${Math.max(18, height * 30)}%`, `${Math.min(100, height * 112)}%`, `${Math.max(26, height * 54)}%`]
+                    : `${Math.max(18, height * 42)}%`,
+                  opacity: isFinalVoicePlaying ? [0.5, 1, 0.62] : 0.55,
+                }}
+                transition={{
+                  duration: 0.9 + (index % 4) * 0.18,
+                  repeat: isFinalVoicePlaying ? Infinity : 0,
+                  ease: "easeInOut",
+                  delay: index * 0.04,
+                }}
+                className="block w-full max-w-3 rounded-full bg-gradient-to-t from-fuchsia-200/85 via-violet-200/90 to-indigo-200/75 shadow-[0_0_18px_rgba(168,85,247,0.18)]"
+              />
+            </div>
+          ))}
         </div>
         <p className="mt-5 text-base leading-7 text-white/78">
           I love you. I hope this year is soft with you, kind to you, and full of things that make you smile.
         </p>
+      </button>
+
+      <div className="mt-8 w-full max-w-[36rem]">
+        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/6">
+          <Image
+            src="/images/20250221_175850585.jpg"
+            alt="Final section image"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#120c22]/70 via-transparent to-transparent" />
+        </div>
       </div>
 
-      <div className="mt-8 grid w-full max-w-3xl gap-4 md:grid-cols-3">
-        {finalGallery.map((image, index) => (
-          <div
-            key={image}
-            className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/6"
-          >
-            <Image
-              src={image}
-              alt={`Final gallery image ${index + 1}`}
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#120c22]/70 via-transparent to-transparent" />
-          </div>
-        ))}
-      </div>
+      <p className="mt-10 text-center font-serif text-2xl text-fuchsia-50/88 md:text-3xl">Your ሀበን</p>
     </motion.section>
   )
 }
