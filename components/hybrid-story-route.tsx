@@ -279,7 +279,7 @@ function TimelineSection() {
           </div>
 
           <div className="grid gap-8 md:grid-cols-[0.92fr_1.08fr] md:items-center">
-            <div className="relative hidden h-[38rem] md:block">
+            <div className="relative hidden h-[44rem] md:block">
               <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-white/10" />
               <motion.div
                 className="absolute left-1/2 top-0 w-px -translate-x-1/2 bg-gradient-to-b from-fuchsia-200 via-violet-200 to-indigo-200"
