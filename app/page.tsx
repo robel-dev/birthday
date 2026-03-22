@@ -1,5 +1,5 @@
-import { redirect } from "next/navigation"
+import { HybridStoryRoute } from "@/components/hybrid-story-route"
 
 export default function HomePage() {
-  redirect("/hybrid-story")
+  return <HybridStoryRoute />
 }
