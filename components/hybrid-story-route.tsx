@@ -387,6 +387,7 @@ function TimelineSection() {
 function NasaSection() {
   const audioRef = useRef<HTMLAudioElement | null>(null)
   const [isVoicePlaying, setIsVoicePlaying] = useState(false)
+  const [isTicketOpen, setIsTicketOpen] = useState(false)
   const [showQuestionPulse, setShowQuestionPulse] = useState(true)
 
   useEffect(() => {
@@ -408,6 +409,10 @@ function NasaSection() {
     } catch {
       setIsVoicePlaying(false)
     }
+  }
+
+  const handleOpenTicket = () => {
+    setIsTicketOpen(true)
   }
 
   return (
@@ -493,15 +498,66 @@ function NasaSection() {
           />
 
           <div className="mt-8 overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/6 p-3 md:p-4">
-            <div className="relative overflow-hidden rounded-[1.2rem] border border-white/10 bg-[#120c22]/40 shadow-[0_18px_50px_rgba(0,0,0,0.22)]">
-              <Image
-                src="/boarding-pass.jpg"
-                alt="Birthday boarding pass"
-                width={1600}
-                height={900}
-                className="h-auto w-full object-contain"
-                priority
-              />
+            <div className="relative overflow-hidden rounded-[1.2rem] border border-white/10 bg-[radial-gradient(circle_at_top,rgba(244,114,182,0.12),transparent_32%),linear-gradient(180deg,rgba(24,18,44,0.96),rgba(13,15,30,0.94))] shadow-[0_18px_50px_rgba(0,0,0,0.22)] [perspective:1800px]">
+              <motion.div
+                initial={false}
+                animate={{
+                  scale: isTicketOpen ? 1 : 0.965,
+                  filter: isTicketOpen ? "blur(0px)" : "blur(3px)",
+                  opacity: isTicketOpen ? 1 : 0.52,
+                  y: isTicketOpen ? 0 : 18,
+                }}
+                transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+                className="relative rounded-[1rem] border border-white/10 bg-[#120c22]/40"
+              >
+                <Image
+                  src="/boarding-pass.jpg"
+                  alt="Birthday boarding pass"
+                  width={1600}
+                  height={900}
+                  priority
+                  className="h-auto w-full object-contain"
+                />
+              </motion.div>
+
+              <motion.button
+                type="button"
+                onClick={handleOpenTicket}
+                disabled={isTicketOpen}
+                initial={false}
+                animate={{
+                  rotateX: isTicketOpen ? -94 : 0,
+                  y: isTicketOpen ? -92 : 0,
+                  opacity: isTicketOpen ? 0.1 : 1,
+                }}
+                transition={{ duration: 1.05, ease: [0.32, 0.72, 0, 1] }}
+                style={{ transformOrigin: "top center" }}
+                className="absolute inset-0 z-10 flex flex-col items-center justify-center rounded-[1rem] border border-white/14 bg-[linear-gradient(180deg,rgba(43,31,79,0.88),rgba(22,18,40,0.82))] px-6 text-center shadow-[0_16px_40px_rgba(0,0,0,0.24)] backdrop-blur-md disabled:pointer-events-none"
+              >
+                <div className="absolute inset-x-0 top-0 h-16 bg-[linear-gradient(180deg,rgba(255,255,255,0.14),transparent)]" />
+                <div className="absolute inset-x-10 bottom-8 h-px bg-white/10" />
+                <p className="relative text-[0.65rem] uppercase tracking-[0.38em] text-fuchsia-100/58">
+                  
+                </p>
+                <div className="relative mt-5 inline-flex items-center rounded-full border border-fuchsia-200/24 bg-fuchsia-200/10 px-7 py-3 text-sm uppercase tracking-[0.32em] text-fuchsia-50 shadow-[0_12px_30px_rgba(0,0,0,0.18)]">
+                  Open
+                </div>
+                <p className="relative mt-5 max-w-xs text-sm leading-6 text-white/62">
+                  Yene fiker click on the '?' to hear explanation mn endehone
+                </p>
+              </motion.button>
+
+              <AnimatePresence>
+                {!isTicketOpen ? (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35, ease: "easeOut" }}
+                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.14),transparent_26%),linear-gradient(180deg,rgba(255,255,255,0.06),transparent_34%,rgba(9,10,20,0.10))]"
+                  />
+                ) : null}
+              </AnimatePresence>
             </div>
           </div>
         </div>
